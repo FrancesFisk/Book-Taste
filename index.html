@@ -1,13 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="index.js"></script>    
-</body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Book Taste</title>
+        <script
+          src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <link href="index.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+      <main role="main">
+        <h1>Book Taste</h1>
+        <h2>Get book recommendations</h2>
+          <form action="#" class="js-search-form" id="search-form">
+            <label for="query"></label>
+            <input type="text" class="js-query">
+            <button type="submit">Search</button>
+          </form>
+          
+          <div class="results-area">
+            <div class="js-search-results" aria-live="assertive"></div>
+          </div>
+      </main>
+      <section class="lightbox">
+        <div class="inner">
+          <button>Close</button>
+        </div>
+      </section>
+      <script src="index.js"></script>
+    </body>
 </html>
