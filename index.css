@@ -1,6 +1,80 @@
+body {
+    margin: 0;
+}
 main {
     position: relative;
     z-index: 1;
+}
+
+.hero {
+    background: url("img/glen-noble-18012-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-hero {
+    background: rgba(252,252,252, 0.8);;
+    height: 80%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.hero-content h1 {
+    color: #B2196D;
+    font-family: 'Elsie', cursive;
+}
+
+.hero-content h3 {
+    color: #282727;
+    font-family: 'Roboto', sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+form {
+    padding-top: 15px;
+}
+
+input {
+    font-size: 16px;
+    padding: 7px;
+    border: none;
+}
+
+/* Search bar placeholder */
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color:  rgb(104, 220, 233);
+}
+::-moz-placeholder { /* Firefox 19+ */
+color:  #20CDE0;
+}
+:-ms-input-placeholder { /* IE 10+ */
+color:  #20CDE0;
+}
+:-moz-placeholder { /* Firefox 18- */
+color:  #20CDE0;
+}
+
+form button {
+    border: 1px solid white;
+    background: none;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    background: rgb(36, 179, 194);
+    color: white;
+    padding: 7px;
+    cursor: pointer;
 }
 
 .thumbnail {

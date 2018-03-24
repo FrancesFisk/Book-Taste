@@ -59,11 +59,11 @@ $('body').on('click', '.thumbnail', function() {
     let bookInfo = `<h3>${thisText}</h3>` +
         `<div>${books[thisText].wTeaser}</div>` +
         `<div><a href='${books[thisText].wUrl}' target='_blank'>Read More</a></div>`;
-    $('.inner').append(bookInfo);
+    $('.inner-lightbox').append(bookInfo);
     $('.lightbox').css('display', 'block');
 })
 
-$('.inner > button').click(function() {
+$('.inner-lightbox > button').click(function() {
     $('.lightbox').css('display', 'none');
 })
 
