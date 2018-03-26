@@ -2,7 +2,9 @@ $(function() {
 
 // create a variable for the endpoint
 let TASTEDIVE_ENDPOINT = 'https://tastedive.com/api/similar',
-    books;
+    books,
+    testing = false,
+    lightboxAllow = false;
 
 // get the data from TasteDive API
 function getDataFromApi(searchTerm, callback) {
@@ -11,7 +13,7 @@ function getDataFromApi(searchTerm, callback) {
       data: {
         q: `book:${searchTerm}`,
         info: 1,
-        limit: 10,
+        limit: 12,
         k: '303423-BookTast-BKJPLZCR',
         type: 'books'
       },
@@ -39,7 +41,7 @@ function loadResults(data) {
     // image
     // title
     // console.log(item.Name);
-    returnHTML += `<div class="thumbnail">${item.Name}</div>`;
+    returnHTML += `<div class="thumbnail"><span>${item.Name}</span></div>`;
     books[item.Name] = item;
     // author
     // description
@@ -49,40 +51,77 @@ function loadResults(data) {
     });
 
     $('.js-search-results').html(returnHTML);
+    $('.results-bar').removeAttr('hidden').addClass('open');
+    $('.js-search-results').addClass('show');
+    $('html, body').animate({                           
+        scrollTop: $(".results-bar").offset().top                 
+    }, 2000);
+    if (testing && lightboxAllow) {
+        lightbox("Othello");
+    }
 }
 
-$('body').on('click', '.thumbnail', function() {
-    let clickedElement = $(this);
-    console.log(clickedElement);
-    let thisText = clickedElement.text();
-    // alert(books[thisText]);
-    let bookInfo = `<h3>${thisText}</h3>` +
-        `<div>${books[thisText].wTeaser}</div>` +
-        `<div><a href='${books[thisText].wUrl}' target='_blank'>Read More</a></div>`;
-    $('.inner').append(bookInfo);
-    $('.lightbox').css('display', 'block');
-})
+function lightbox(query) {
+    let bookInfo = `<h3>${query}</h3>` +
+            `<div>${books[query].wTeaser}</div>` +
+            `<div class="wiki-link"><a href='${books[query].wUrl}' target='_blank'>Read more <i class="fas fa-external-link-alt"></i></a></div>`;
+        $('.lightbox-content').html(bookInfo);
+        $('.lightbox').css('display', 'block');
+}
+    $('body').on('click', '.thumbnail', function() {
+        let clickedElement = $(this);
+        console.log(clickedElement);
+        let thisText = clickedElement.text();
+        lightbox(thisText);
+    })
 
-$('.inner > button').click(function() {
+
+$('.inner-lightbox > button').click(function() {
     $('.lightbox').css('display', 'none');
 })
 
+function insertSearchTermOnPage(searchTerm) {
+    $('.results-bar span span').text(capitalize(searchTerm));
+}
+
 function watchSubmit() {
-$('.js-search-form').on('submit', event => {
-    event.preventDefault();
-    // get the value of the user's input
-    const queryTarget = $(event.currentTarget).find('.js-query');
-    // create a variable for the user's input
-    const query = queryTarget.val();
-//   console.log(queryTarget.val());
-    // clear the input
-    queryTarget.val("");
-    // call the function that gets TasteDive data using parameters of user's input and callback function to display results
-    getDataFromApi(query, loadResults);
-});
+    $('.js-search-form').on('submit', event => {
+        event.preventDefault();
+        // get the value of the user's input
+        const queryTarget = $(event.currentTarget).find('.js-query');
+        // create a variable for the user's input
+        const query = queryTarget.val();
+    //   console.log(queryTarget.val());
+        // clear the input
+        queryTarget.val("");
+        insertSearchTermOnPage(query);
+        // call the function that gets TasteDive data using parameters of user's input and callback function to display results
+        getDataFromApi(query, loadResults);
+    });
+}
+
+$('body').on('click', '.clear-btn', function(e) {
+    e.preventDefault();
+    clearResults();
+    }
+)
+
+function clearResults() {
+    $('.results-bar').removeClass('open').hide();
+    $('.js-search-results').removeClass('show').empty();
+}
+
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() +
+           string.substring(1);
+
+           //split 
+           //join
 }
 
 watchSubmit();
-
+if (testing) { 
+    getDataFromApi("hamlet", loadResults);
+}
 
 });
