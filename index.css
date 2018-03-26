@@ -95,6 +95,10 @@ form button {
     justify-content: center;
 }
 
+.clear-btn {
+    cursor: pointer;
+}
+
 .js-search-results.show {
     display: flex;
     flex-wrap: wrap;

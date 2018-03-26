@@ -3,7 +3,7 @@ $(function() {
 // create a variable for the endpoint
 let TASTEDIVE_ENDPOINT = 'https://tastedive.com/api/similar',
     books,
-    testing = false,
+    testing = true,
     lightboxAllow = false;
 
 // get the data from TasteDive API
@@ -55,7 +55,7 @@ function loadResults(data) {
     $('.js-search-results').addClass('show');
     $('html, body').animate({                           
         scrollTop: $(".results-bar").offset().top                 
-    }, 2000);
+    }, 800);
     if (testing && lightboxAllow) {
         lightbox("Othello");
     }
@@ -107,17 +107,21 @@ $('body').on('click', '.clear-btn', function(e) {
 )
 
 function clearResults() {
-    $('.results-bar').removeClass('open').hide();
+    $('.results-bar').removeClass('open').attr('hidden', true);
     $('.js-search-results').removeClass('show').empty();
 }
 
 function capitalize(string) {
-    return string.charAt(0).toUpperCase() +
-           string.substring(1);
-
-           //split 
-           //join
+    let newString = [];
+    let capString;
+    let splitString = string.split(" ");
+    for (let i = 0; i < splitString.length; i++) {
+      capString = splitString[i].charAt(0).toUpperCase() + splitString[i].substring(1);
+      newString.push(capString);
+    }
+    return (newString.join(" "));
 }
+
 
 watchSubmit();
 if (testing) { 
