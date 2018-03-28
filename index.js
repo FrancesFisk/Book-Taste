@@ -2,12 +2,13 @@ $(function() {
 
 // create a variable for the endpoint
 let TASTEDIVE_ENDPOINT = 'https://tastedive.com/api/similar',
+    GOOGLEBOOKS_ENDPOINT = 'https://www.googleapis.com/books/v1/volumes',
     books,
-    testing = false,
-    lightboxAllow = false;
+    testing = true,
+    lightboxAllow = true;
 
 // get the data from TasteDive API
-function getDataFromApi(searchTerm, callback) {
+function getDatafromTDApi(searchTerm, callback) {
     // create settings for the search
     const settings = {
       data: {
@@ -28,26 +29,19 @@ function getDataFromApi(searchTerm, callback) {
     $.ajax(TASTEDIVE_ENDPOINT, settings);
   }
 
-
-
 function loadResults(data) {
-    console.log(data);
     let results = data.Similar.Results;
-    console.log(results);
+    if(results.length === 0) {
+        console.log("if statement fail");
+        //feedback that it failed
+        return;
+    }
     let returnHTML = "";
     books = {};
     // loop through each item in the Results array
     results.forEach(function(item){
-    // image
-    // title
-    // console.log(item.Name);
     returnHTML += `<div class="thumbnail"><span>${item.Name}</span></div>`;
     books[item.Name] = item;
-    // author
-    // description
-    // console.log(item.wTeaser);
-    // // wiki page
-    // console.log(item.wUrl);
     });
 
     $('.js-search-results').html(returnHTML);
@@ -76,7 +70,7 @@ function lightbox(query) {
     })
 
 
-$('.inner-lightbox > button').click(function() {
+$('.lightbox-border > button').click(function() {
     $('.lightbox').css('display', 'none');
 })
 
@@ -91,12 +85,11 @@ function watchSubmit() {
         const queryTarget = $(event.currentTarget).find('.js-query');
         // create a variable for the user's input
         const query = queryTarget.val();
-    //   console.log(queryTarget.val());
         // clear the input
         queryTarget.val("");
         insertSearchTermOnPage(query);
         // call the function that gets TasteDive data using parameters of user's input and callback function to display results
-        getDataFromApi(query, loadResults);
+        getDatafromTDApi(query, loadResults);
     });
 }
 
@@ -112,16 +105,24 @@ function clearResults() {
 }
 
 function capitalize(string) {
-    return string.charAt(0).toUpperCase() +
-           string.substring(1);
-
-           //split 
-           //join
+    return string.replace(/ +/g, " ").split(" ").map(function(item) {
+        return item.charAt(0).toUpperCase() + item.substring(1);
+    }).join(" ");
 }
+
+$('body').on('mouseover', '.thumbnail', function() {
+    $(this).addClass('expand');
+})
+
+$('body').on('mouseout', '.thumbnail', function() {
+    if($(this).hasClass('expand')) {
+        $(this).removeClass('expand');
+    }
+})
 
 watchSubmit();
 if (testing) { 
-    getDataFromApi("hamlet", loadResults);
+    getDatafromTDApi("hamlet", loadResults);
 }
 
 });
