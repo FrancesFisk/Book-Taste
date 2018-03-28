@@ -1,8 +1,7 @@
 $(function() {
 
-// create a variable for the endpoint
+// Variables
 let TASTEDIVE_ENDPOINT = 'https://tastedive.com/api/similar',
-    GOOGLEBOOKS_ENDPOINT = 'https://www.googleapis.com/books/v1/volumes',
     books,
     testing = true,
     lightboxAllow = true;
@@ -29,6 +28,7 @@ function getDatafromTDApi(searchTerm, callback) {
     $.ajax(TASTEDIVE_ENDPOINT, settings);
   }
 
+// Load thumbnail results
 function loadResults(data) {
     let results = data.Similar.Results;
     if(results.length === 0) {
@@ -51,33 +51,37 @@ function loadResults(data) {
         scrollTop: $(".results-bar").offset().top                 
     }, 2000);
     if (testing && lightboxAllow) {
-        lightbox("Othello");
+        lightbox("Carrie");
     }
 }
 
+// Fill lightbox with info
 function lightbox(query) {
-    let bookInfo = `<h3>${query}</h3>` +
+    let tasteDiveInfo = `<h3>${query}</h3>` +
             `<div>${books[query].wTeaser}</div>` +
             `<div class="wiki-link"><a href='${books[query].wUrl}' target='_blank'>Read more <i class="fas fa-external-link-alt"></i></a></div>`;
-        $('.lightbox-content').html(bookInfo);
+        $('.lightbox-content').html(tasteDiveInfo);
         $('.lightbox').css('display', 'block');
 }
-    $('body').on('click', '.thumbnail', function() {
-        let clickedElement = $(this);
-        console.log(clickedElement);
-        let thisText = clickedElement.text();
-        lightbox(thisText);
-    })
 
+// Make thumbnail clickable to open its lightbox
+$('body').on('click', '.thumbnail', function() {
+    let clickedElement = $(this);
+    let thisText = clickedElement.text();
+    lightbox(thisText);
+})
 
-$('.lightbox-border > button').click(function() {
+// Activate close button in lightbox
+$('.inner-lightbox > button').click(function() {
     $('.lightbox').css('display', 'none');
 })
 
+// Fill results bar
 function insertSearchTermOnPage(searchTerm) {
     $('.results-bar span span').text(capitalize(searchTerm));
 }
 
+// Activate search button
 function watchSubmit() {
     $('.js-search-form').on('submit', event => {
         event.preventDefault();
@@ -93,6 +97,7 @@ function watchSubmit() {
     });
 }
 
+// Clear thumbnail results
 $('body').on('click', '.clear-btn', function(e) {
     e.preventDefault();
     clearResults();
@@ -104,25 +109,53 @@ function clearResults() {
     $('.js-search-results').removeClass('show').empty();
 }
 
+// Capitalize the user's book title
 function capitalize(string) {
     return string.replace(/ +/g, " ").split(" ").map(function(item) {
         return item.charAt(0).toUpperCase() + item.substring(1);
     }).join(" ");
 }
 
+// Add border when mouseover thumbnails
 $('body').on('mouseover', '.thumbnail', function() {
-    $(this).addClass('expand');
+    $(this).addClass('thumbnail-border');
 })
 
 $('body').on('mouseout', '.thumbnail', function() {
-    if($(this).hasClass('expand')) {
-        $(this).removeClass('expand');
+    if($(this).hasClass('thumbnail-border')) {
+        $(this).removeClass('thumbnail-border');
     }
 })
 
 watchSubmit();
 if (testing) { 
-    getDatafromTDApi("hamlet", loadResults);
+    getDatafromTDApi("The Shining", loadResults);
 }
 
 });
+
+
+function getDataFromGBApi(searchTerm, callback) {
+   let GOOGLEBOOKS_ENDPOINT = 'https://www.googleapis.com/books/v1/volumes';
+    // create settings for the search
+    const settings = {
+    data: {
+        q: `${searchTerm}`,
+        maxResults: 1,
+        key: 'AIzaSyALdsddcNM1-QAgR3QtjlsjF8fiR-LEq8c',
+    },
+    dataType: 'json',
+    type: 'GET',
+    success: callback
+    };
+    // perform an asynchronous HTTP request
+    $.ajax(GOOGLEBOOKS_ENDPOINT, settings);
+}
+
+function loadGBResults(data) {
+    let results = data.items[0].volumeInfo.authors;
+    console.log("google books results", results);
+}
+
+
+getDataFromGBApi("carrie", loadGBResults);
