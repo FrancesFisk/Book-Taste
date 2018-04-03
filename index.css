@@ -74,25 +74,60 @@ input {
 
 form button {
     height: 35px;
-    border: 1px solid white;
+    border: 1px solid #ffffff;
     background: none;
     font-size: 16px;
-    font-family: 'Roboto', sans-serif;
     background: rgb(36, 179, 194);
-    color: white;
+    color: #ffffff;
     padding: 7px;
     cursor: pointer;
 }
 
 .results-bar.open {
     background-color: #B2196D;
-    color: #FFEA57;
+}
+
+.results-bar-content {
+    color: rgb(245, 227, 125);
     font-size: 20px;
-    font-family: 'Roboto';
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.clear-btn {
+    display: block;
+    margin: 0 auto 20px auto;
+    border: 1px solid #ffffff;
+    font-size: 14px;
+    background: rgb(36, 179, 194);
+    color: #ffffff;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.no-results-bar.open {
+    background-color: #B2196D;
+    height: 200px;
+}
+
+.no-results-bar-content {
+    padding: 40px 15px;
+    text-align: center;
+    color: rgb(245, 227, 125);
+    font-size: 20px;
+    font-style: italic;
+}
+
+.no-results-bar-content button {
+    display: block;
+    margin: 20px auto;
+    height: 35px;
+    border: 1px solid white;
+    font-size: 16px;
+    background: rgb(36, 179, 194);
+    color: #ffffff;
+    padding: 7px;
+    cursor: pointer;
 }
 
 .js-search-results.show {
@@ -132,7 +167,7 @@ form button {
 .thumbnail span {
     font-family: 'Elsie', cursive;
     font-size: 18px;
-    color: white;
+    color: #ffffff;
     display: block;
     margin: 10px auto;
     text-align: center;
@@ -180,7 +215,7 @@ body {
 
 .grid {
  list-style: none;
- margin-left: -40px;
+ margin-left: -18px;
 }
 
 .gc {
@@ -188,7 +223,8 @@ body {
  display: inline-block;
  margin-right: -.25em;
  min-height: 1px;
- padding-left: 40px;
+ padding-left: 20px;
+ padding-right: 5px;
  vertical-align: top;
 }
 
@@ -207,13 +243,14 @@ body {
 }
 
 .naccs .menu div {
- padding: 15px 20px 15px 40px;
+ padding: 15px 7px;
+ font-size: 10px;
  margin-bottom: 10px;
  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
  cursor: pointer;
  position: relative;
  vertical-align: middle;
- font-weight: 700;
+ font-weight: 500;
  transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -240,7 +277,8 @@ body {
 }
 
 .naccs .menu div.active {
- padding: 15px 20px 15px 20px;
+    padding: 15px 7px;
+    font-weight: 700;
 }
 
 ul.nacc {
@@ -254,7 +292,7 @@ ul.nacc {
 
 ul.nacc li {
  opacity: 0;
- transform: translateX(50px);
+ transform: translateX(0px);
  position: absolute;
  list-style: none;
  transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -269,6 +307,7 @@ ul.nacc li.active {
 
 ul.nacc li p {
  margin: 0;
+ font-size: 14px;
 }
 
 /* OLD LIGHTBOX */
@@ -315,7 +354,7 @@ ul.nacc li p {
 }
 
 section.lightbox div.inner-lightbox {
-    background-color: white;
+    background-color: #ffffff;
     width: 80%;
     padding: 60px;
     position: absolute;

@@ -29,8 +29,17 @@
         </div>
       </div>
       <div class="results-bar" hidden>
-        <span>If you like <span></span>, check out these books:</span>
-        <button class="clear-btn">clear</button>
+        <div class="results-bar-content">
+          <button class="clear-btn">clear results</button>
+          <span>If you like <span></span>, check out these books:</span>
+          
+        </div>
+      </div>
+      <div class="no-results-bar" hidden>
+          <div class="no-results-bar-content">
+            <span>Sorry, there were no results matching <span></span>.</span>
+            <button class="clear-btn">search again</button>
+          </div>  
       </div>
       <div class="results-area">
         <div class="js-search-results" aria-live="assertive"></div>
