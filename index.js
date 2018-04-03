@@ -1,15 +1,14 @@
 $(function() {
 
-// create a variable for the endpoint
+// Variables
 let TASTEDIVE_ENDPOINT = 'https://tastedive.com/api/similar',
-    GOOGLEBOOKS_ENDPOINT = 'https://www.googleapis.com/books/v1/volumes',
     books,
     testing = true,
-    lightboxAllow = false;
-
+    lightboxAllow = false,
+    noResultsBarAllow = false;
 
 // get the data from TasteDive API
-function getDatafromTDApi(searchTerm, callback) {
+function getDataFromTDApi(searchTerm, callback) {
     // create settings for the search
     const settings = {
       data: {
@@ -30,55 +29,123 @@ function getDatafromTDApi(searchTerm, callback) {
     $.ajax(TASTEDIVE_ENDPOINT, settings);
   }
 
+// Load thumbnail results
 function loadResults(data) {
     let results = data.Similar.Results;
     if(results.length === 0) {
         console.log("if statement fail");
-        //feedback that it failed
-        return;
+        //feedback that it failed  
+        clearResults();
+        $('.no-results-bar').removeAttr('hidden').addClass('open');
+        $('html, body').animate({                           
+            scrollTop: $(".no-results-bar").offset().top                 
+        }, 1000);
+    } else {
+        let returnHTML = "";
+        books = {};
+        // loop through each item in the Results array
+        results.forEach(function(item){
+        returnHTML += `<div class="thumbnail"><span>${item.Name}</span></div>`;
+        books[item.Name] = item;
+        });
+        clearResults();
+        $('.results-bar').removeAttr('hidden').addClass('open');
+        $('.js-search-results').html(returnHTML);
+        $('.js-search-results').addClass('show');
+        $('html, body').animate({                           
+            scrollTop: $(".results-bar").offset().top                 
+        }, 1000);
     }
-    let returnHTML = "";
-    books = {};
-    // loop through each item in the Results array
-    results.forEach(function(item){
-    returnHTML += `<div class="thumbnail"><span>${item.Name}</span></div>`;
-    books[item.Name] = item;
-    });
 
-    $('.js-search-results').html(returnHTML);
-    $('.results-bar').removeAttr('hidden').addClass('open');
-    $('.js-search-results').addClass('show');
-    $('html, body').animate({                           
-        scrollTop: $(".results-bar").offset().top                 
-    }, 800);
     if (testing && lightboxAllow) {
-        lightbox("Othello");
+        lightbox("Carrie");
     }
 }
 
-function lightbox(query) {
-    let bookInfo = `<h3>${query}</h3>` +
-            `<div>${books[query].wTeaser}</div>` +
-            `<div class="wiki-link"><a href='${books[query].wUrl}' target='_blank'>Read more <i class="fas fa-external-link-alt"></i></a></div>`;
-        $('.lightbox-content').html(bookInfo);
+function lightbox(book) {
+    let displayAccordion = `
+     <div class="naccs">
+        <div class="grid">
+        <div class="gc gc--1-of-3">
+            <div class="menu">
+            <div class="active"><span class="light"></span><span>Info</span></div>
+            <div><span class="light"></span><span>Buy</span></div>
+            <div><span class="light"></span><span>Description</span></div>
+            </div>
+        </div>
+        <div class="gc gc--2-of-3">
+            <ul class="nacc">
+            <li class="active">
+            <div>
+            <p>
+                <img src='${book.bookCover}' alt=''>
+                <span>${book.title}</span>
+                <span>${book.author}</span>
+            </p>
+            </div>
+            </li>
+            <li>
+            <div>
+            <p>
+                <img>
+                <span>$${book.price}</span>
+                <span><a href='${book.buyLink}' target='_blank'>Purchase</a></span>
+            </p>
+            </div>
+            </li>
+            <li>
+            <div>
+            <p>
+                <span>${book.description}</span>
+            </p>
+            </div>
+            </li>
+            </ul>
+        </div>
+        </div>
+        </div>`;
+        $('.lightbox-content').html(displayAccordion);
         $('.lightbox').css('display', 'block');
 }
-    $('body').on('click', '.thumbnail', function() {
-        let clickedElement = $(this);
-        console.log(clickedElement);
-        let thisText = clickedElement.text();
-        lightbox(thisText);
-    })
+
+// Accordion tabs
+$(document).on("click", ".naccs .menu div", function() {
+	var numberIndex = $(this).index();
+
+	if (!$(this).is("active")) {
+		$(".naccs .menu div").removeClass("active");
+		$(".naccs ul li").removeClass("active");
+
+		$(this).addClass("active");
+		$(".naccs ul").find("li:eq(" + numberIndex + ")").addClass("active");
+
+		var listItemHeight = $(".naccs ul")
+			.find("li:eq(" + numberIndex + ")")
+			.innerHeight();
+		$(".naccs ul").height(listItemHeight + "px");
+	}
+});
 
 
-$('.lightbox-border > button').click(function() {
+// Make thumbnail clickable to open its lightbox
+$('body').on('click', '.thumbnail', function() {
+    let clickedElement = $(this);
+    let thisText = clickedElement.text();
+    getDataFromGBApi(thisText, loadGBResults);
+})
+
+// Activate close button in lightbox
+$('.inner-lightbox > button').click(function() {
     $('.lightbox').css('display', 'none');
 })
 
+// Fill results bar
 function insertSearchTermOnPage(searchTerm) {
-    $('.results-bar span span').text(capitalize(searchTerm));
+    $('.results-bar-content span span').text(capitalize(searchTerm));
+    $('.no-results-bar-content span span').text(capitalize(searchTerm));
 }
 
+// Activate search button
 function watchSubmit() {
     $('.js-search-form').on('submit', event => {
         event.preventDefault();
@@ -90,10 +157,11 @@ function watchSubmit() {
         queryTarget.val("");
         insertSearchTermOnPage(query);
         // call the function that gets TasteDive data using parameters of user's input and callback function to display results
-        getDatafromTDApi(query, loadResults);
+        getDataFromTDApi(query, loadResults);
     });
 }
 
+// Clear thumbnail results
 $('body').on('click', '.clear-btn', function(e) {
     e.preventDefault();
     clearResults();
@@ -101,42 +169,72 @@ $('body').on('click', '.clear-btn', function(e) {
 )
 
 function clearResults() {
-    $('.results-bar').removeClass('open').attr('hidden', true);
+    $('.results-bar').removeClass('open').prop('hidden', 'hidden');
+    $('.no-results-bar').removeClass('open').prop('hidden', 'hidden');
     $('.js-search-results').removeClass('show').empty();
 }
 
+// Capitalize the user's book title
 function capitalize(string) {
-<<<<<<< HEAD
-    let newString = [];
-    let capString;
-    let splitString = string.split(" ");
-    for (let i = 0; i < splitString.length; i++) {
-      capString = splitString[i].charAt(0).toUpperCase() + splitString[i].substring(1);
-      newString.push(capString);
-    }
-    return (newString.join(" "));
-}
-
-=======
     return string.replace(/ +/g, " ").split(" ").map(function(item) {
         return item.charAt(0).toUpperCase() + item.substring(1);
     }).join(" ");
 }
 
+// Add border when mouseover thumbnails
 $('body').on('mouseover', '.thumbnail', function() {
-    $(this).addClass('expand');
+    $(this).addClass('thumbnail-border');
 })
 
 $('body').on('mouseout', '.thumbnail', function() {
-    if($(this).hasClass('expand')) {
-        $(this).removeClass('expand');
+    if($(this).hasClass('thumbnail-border')) {
+        $(this).removeClass('thumbnail-border');
     }
 })
->>>>>>> mobile-design
 
 watchSubmit();
 if (testing) { 
-    getDatafromTDApi("hamlet", loadResults);
+    getDataFromTDApi("The Shining", loadResults);
 }
+
+if (noResultsBarAllow) {
+    getDataFromTDApi("dfsjlkdjfsl", loadResults);
+}
+
+
+
+// Get the Google Books Api to work
+function getDataFromGBApi(searchTerm, callback) {
+   let GOOGLEBOOKS_ENDPOINT = 'https://www.googleapis.com/books/v1/volumes';
+    // create settings for the search
+    const settings = {
+    data: {
+        q: `${searchTerm}`,
+        maxResults: 1,
+        key: 'AIzaSyALdsddcNM1-QAgR3QtjlsjF8fiR-LEq8c',
+    },
+    dataType: 'json',
+    type: 'GET',
+    success: callback
+    };
+    // perform an asynchronous HTTP request
+    $.ajax(GOOGLEBOOKS_ENDPOINT, settings);
+}
+
+function loadGBResults(data) {
+    let bookInfo = {
+    title: data.items[0].volumeInfo.title,
+    author: data.items[0].volumeInfo.authors,
+    bookCover: data.items[0].volumeInfo.imageLinks.thumbnail,
+    price: data.items[0].saleInfo.retailPrice.amount,
+    buyLink: data.items[0].saleInfo.buyLink,
+    description: data.items[0].volumeInfo.description
+    };
+    console.log("google books results", bookInfo);
+    lightbox(bookInfo);
+}
+
+
+// getDataFromGBApi("carrie", loadGBResults);
 
 });
