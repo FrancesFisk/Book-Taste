@@ -3,7 +3,7 @@ $(function() {
 // Variables
 let TASTEDIVE_ENDPOINT = 'https://tastedive.com/api/similar',
     books,
-    testing = true,
+    testing = false,
     lightboxAllow = false,
     noResultsBarAllow = false;
 
@@ -37,8 +37,9 @@ function loadResults(data) {
         //feedback that it failed  
         clearResults();
         $('.no-results-bar').removeAttr('hidden').addClass('open');
+        let noResultsBarHeight = $('.no-results-bar').height();
         $('html, body').animate({                           
-            scrollTop: $(".no-results-bar").offset().top                 
+            scrollTop: noResultsBarHeight            
         }, 1000);
     } else {
         let returnHTML = "";
@@ -63,6 +64,7 @@ function loadResults(data) {
 }
 
 function lightbox(book) {
+    console.log("lightbox ", book);
     let displayAccordion = `
      <div class="naccs">
         <div class="grid">
@@ -149,6 +151,7 @@ function insertSearchTermOnPage(searchTerm) {
 function watchSubmit() {
     $('.js-search-form').on('submit', event => {
         event.preventDefault();
+        clearResults();
         // get the value of the user's input
         const queryTarget = $(event.currentTarget).find('.js-query');
         // create a variable for the user's input
