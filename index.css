@@ -134,15 +134,18 @@ form button {
     cursor: pointer;
 }
 
+.results-area {
+    text-align: center;
+}
+
 .js-search-results.show {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: inline-block;
     padding: 20px 10px;
     min-height: 100vh;
 }
 
 .thumbnail {
+    display: inline-block;
     position: relative;
     cursor: pointer;
     font-size: 10px;
@@ -313,81 +316,3 @@ ul.nacc li p {
  margin: 0;
  font-size: 14px;
 }
-
-/* OLD LIGHTBOX */
-/* .lightbox-content {
-    padding: 15px;
-}
-.inner-lightbox h3 {
-    font-family: 'Elsie', cursive;
-}
-
-.lightbox-btn {
-    float: right;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 3px 5px 0 0;
-}
-
-.fa-window-close {
-    color: #B2196D;
-}
-
-.wiki-link {
-    margin: 15px 0;
-}
-
-.wiki-link a:link {
-    text-decoration: none;
-    font-weight: bold;
-} */
-
-
-/* Desktop breakpoint */
-/* section.lightbox {
-    background-color: rgba(0, 0, 0, 0.85);
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    display: none;
-}
-
-section.lightbox div.inner-lightbox {
-    background-color: #ffffff;
-    width: 80%;
-    padding: 60px;
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.inner-lightbox h3 {
-    font-family: 'Elsie', cursive;
-}
-
-.lightbox-btn {
-    float: right;
-    cursor: pointer;
-    background: none;
-    border: none;
-    margin-top: -50px;
-    margin-right: -52px;
-}
-
-.fa-window-close {
-    color: #B2196D;
-}
-
-.wiki-link {
-    margin: 15px 0;
-
-.lightbox-btn {
-    margin-top: -50px;
-    margin-right: -52px;
-} */
