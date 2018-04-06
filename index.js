@@ -3,7 +3,8 @@ $(function() {
 // Variables
 let TASTEDIVE_ENDPOINT = 'https://tastedive.com/api/similar',
     books,
-    testing = false,
+    testing = true,
+    testGBdata = false,
     lightboxAllow = false,
     noResultsBarAllow = false;
 
@@ -46,7 +47,7 @@ function loadResults(data) {
         books = {};
         // loop through each item in the Results array
         results.forEach(function(item){
-        returnHTML += `<div class="thumbnail"><span>${item.Name}</span></div>`;
+        returnHTML += `<div class="thumbnail" tabindex="0" aria-pressed="false"><span>${item.Name}</span></div>`;
         books[item.Name] = item;
         });
         clearResults();
@@ -58,7 +59,7 @@ function loadResults(data) {
         }, 1000);
     }
 
-    if (testing && lightboxAllow) {
+    if (testing && testGBdata && lightboxAllow) {
         lightbox("Carrie");
     }
 }
@@ -68,44 +69,35 @@ function lightbox(book) {
     let displayAccordion = `
      <div class="naccs">
         <div class="grid">
-        <div class="gc gc--1-of-3">
-            <div class="menu">
-            <div class="active"><span class="light"></span><span>Info</span></div>
-            <div><span class="light"></span><span>Buy</span></div>
-            <div><span class="light"></span><span>Description</span></div>
+            <div class="gc gc--1-of-3">
+                <div class="menu">
+                <div class="active"><span class="light"></span><span>Info</span></div>
+                <div><span class="light"></span><span>Description</span></div>
+                </div>
+            </div>
+            <div class="gc gc--2-of-3">
+                <ul class="nacc">
+                    <li class="active">
+                        <div>
+                            <p>
+                                <img src='${book.bookCover}' alt='${book.title}' class="book-img">
+                                <span class="book-title">${book.title}</span>
+                                <span class="book-author">By ${book.author}</span>
+                                <span class="published-date"> Published: ${book.publishedDate}</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <p>
+                                <span class="book-description">${book.description}</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="gc gc--2-of-3">
-            <ul class="nacc">
-            <li class="active">
-            <div>
-            <p>
-                <img src='${book.bookCover}' alt=''>
-                <span>${book.title}</span>
-                <span>${book.author}</span>
-            </p>
-            </div>
-            </li>
-            <li>
-            <div>
-            <p>
-                <img>
-                <span>$${book.price}</span>
-                <span><a href='${book.buyLink}' target='_blank'>Purchase</a></span>
-            </p>
-            </div>
-            </li>
-            <li>
-            <div>
-            <p>
-                <span>${book.description}</span>
-            </p>
-            </div>
-            </li>
-            </ul>
-        </div>
-        </div>
-        </div>`;
+    </div>`;
         $('.lightbox-content').html(displayAccordion);
         $('.lightbox').css('display', 'block');
 }
@@ -129,12 +121,21 @@ $(document).on("click", ".naccs .menu div", function() {
 });
 
 
-// Make thumbnail clickable to open its lightbox
+// Open lightbox
 $('body').on('click', '.thumbnail', function() {
     let clickedElement = $(this);
     let thisText = clickedElement.text();
     getDataFromGBApi(thisText, loadGBResults);
 })
+
+$('body').on('keypress', '.thumbnail', function(e){
+    console.log(e.which);
+    if(e.which == 13){//Enter key pressed
+        let clickedElement = $(this);
+        let thisText = clickedElement.text();
+        getDataFromGBApi(thisText, loadGBResults);
+    }
+});
 
 // Activate close button in lightbox
 $('.inner-lightbox > button').click(function() {
@@ -200,9 +201,15 @@ if (testing) {
     getDataFromTDApi("The Shining", loadResults);
 }
 
+if (testGBdata) {
+    getDataFromGBApi("TheShining");
+}
+
 if (noResultsBarAllow) {
     getDataFromTDApi("dfsjlkdjfsl", loadResults);
 }
+
+
 
 
 
@@ -228,9 +235,8 @@ function loadGBResults(data) {
     let bookInfo = {
     title: data.items[0].volumeInfo.title,
     author: data.items[0].volumeInfo.authors,
+    publishedDate: data.items[0].volumeInfo.publishedDate,
     bookCover: data.items[0].volumeInfo.imageLinks.thumbnail,
-    price: data.items[0].saleInfo.retailPrice.amount,
-    buyLink: data.items[0].saleInfo.buyLink,
     description: data.items[0].volumeInfo.description
     };
     console.log("google books results", bookInfo);

@@ -20,7 +20,7 @@
         <div class="inner-hero">
           <div class="hero-content">
             <h1>Book Taste</h1>
-            <h3>Explore book recommendations based on your taste. Type in a book title to start.</h3>
+            <h2>Explore book recommendations based on your taste. Type in a book title to start.</h2>
             <form action="#" class="js-search-form" id="search-form">
               <label for="query"><input type="text" class="js-query" placeholder="Romeo and Juliet"></label>
               <button type="submit"><i class="fas fa-search"></i> search</button>
@@ -28,28 +28,28 @@
           </div>
         </div>
       </div>
-      <div class="results-bar" hidden>
+      <div class="results-bar" aria-live="assertive" hidden>
         <div class="results-bar-content">
           <button class="clear-btn">clear results</button>
           <span>If you like <span></span>, check out these books:</span>
           
         </div>
       </div>
-      <div class="no-results-bar" hidden>
+      <div class="no-results-bar" aria-live="assertive" hidden>
           <div class="no-results-bar-content">
             <span>Sorry, there were no results matching <span></span>.</span>
             <button class="clear-btn">search again</button>
           </div>  
       </div>
-      <div class="results-area">
+      <section role="region" class="results-area">
         <div class="js-search-results" aria-live="assertive">
           
         </div>
-      </div>
+      </section>
     </main>
-    <section class="lightbox">
+    <section role="region" class="lightbox">
       <div class="inner-lightbox">
-          <button class="lightbox-btn">
+          <button class="lightbox-btn"> 
             <i class="fas fa-window-close fa-3x"></i>
           </button>
           <div class="lightbox-content"></div>

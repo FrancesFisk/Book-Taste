@@ -40,11 +40,12 @@ main {
     font-family: 'Elsie', cursive;
 }
 
-.hero-content h3 {
+.hero-content h2 {
     color: #282727;
-    font-family: 'Roboto', sans-serif;
     padding-left: 10px;
     padding-right: 10px;
+    font-size: 24px;
+
 }
 
 form {
@@ -77,7 +78,7 @@ form button {
     border: 1px solid #ffffff;
     background: none;
     font-size: 16px;
-    background: rgb(36, 179, 194);
+    background: #197F8A;
     color: #ffffff;
     padding: 7px;
     cursor: pointer;
@@ -99,7 +100,7 @@ form button {
     margin: 0 auto 20px auto;
     border: 1px solid #ffffff;
     font-size: 14px;
-    background: rgb(36, 179, 194);
+    background: #197F8A;
     color: #ffffff;
     padding: 5px;
     cursor: pointer;
@@ -124,7 +125,7 @@ form button {
     height: 35px;
     border: 1px solid white;
     font-size: 16px;
-    background: rgb(36, 179, 194);
+    background: #197F8A;
     color: #ffffff;
     padding: 7px;
     cursor: pointer;
@@ -201,7 +202,7 @@ section.lightbox {
 }
 
 section.lightbox div.inner-lightbox {
-    background-color: #ffffff;
+    background-color: #B2196D;
     height: 70%;
     width: 80%;
     padding: 10px;
@@ -209,7 +210,13 @@ section.lightbox div.inner-lightbox {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    overflow: auto;
+    color: white;
+}
+
+.lightbox-btn {
+    float: right;
+    background-color: #B2196D;
+    border: none;
 }
 
 /* ACCORDIAN LIGHTBOX */
@@ -241,6 +248,8 @@ body {
 
 .gc--2-of-3 {
  width: 66.66666%;
+ height: 330px;
+ overflow: auto;
 }
 
 .naccs {
@@ -259,6 +268,7 @@ body {
  vertical-align: middle;
  font-weight: 500;
  transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
+ background-color: rgb(182, 47, 122);
 }
 
 .naccs .menu div:hover {
@@ -281,6 +291,7 @@ body {
  width: 3px;
  top: 0;
  border-radius: 0;
+ background-color: #1E919E;
 }
 
 .naccs .menu div.active {
@@ -315,4 +326,30 @@ ul.nacc li.active {
 ul.nacc li p {
  margin: 0;
  font-size: 14px;
+}
+
+/* Lightbox styling */
+.book-img {
+    border: 1px white solid;
+}
+
+.book-title {
+    display: block;
+    font-size: 25px;
+    padding: 5px 0 0 0;
+}
+
+.book-author {
+    display: block;
+    font-size: 18px;
+    padding: 1px 0 1px 0;
+}
+
+.published-date {
+    display: block;
+    padding: 5px 0 0 0;
+}
+
+.book-description {
+    font-size: 16px;
 }
