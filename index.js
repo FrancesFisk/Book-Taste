@@ -42,40 +42,18 @@ $('body').on('keypress', '.thumbnail', function(e){
     }
 });
 
-function openLightbox(clickedElement) {
-    let thisText = $(clickedElement).text();
-    getDataFromGBApi(thisText, loadGBResults);
-}
-
-// Lightbox tabs by Benjamin Koehler
-$(document).on("click", ".naccs .menu div", function() {
+// Open lightbox tabs
+$(document).on('click', '.naccs .menu div', function() {
     lightboxTabs(this);
 });
 
-$(document).on("keypress", ".naccs .menu div", function(e) {
+$(document).on('keypress', '.naccs .menu div', function(e) {
     if(e.which === 13) {
         lightboxTabs(this);
     }   
 });
 
-function lightboxTabs(tabChosen) {
-	var numberIndex = $(tabChosen).index();
-
-	if (!$(tabChosen).is("active")) {
-		$(".naccs .menu div").removeClass("active");
-		$(".naccs ul li").removeClass("active");
-
-		$(tabChosen).addClass("active");
-		$(".naccs ul").find("li:eq(" + numberIndex + ")").addClass("active");
-
-		var listItemHeight = $(".naccs ul")
-			.find("li:eq(" + numberIndex + ")")
-			.innerHeight();
-		$(".naccs ul").height(listItemHeight + "px");
-	}
-}
-
-// Activate close button in lightbox
+// Close button in lightbox
 $('.inner-lightbox > button').click(function() {
     $('.lightbox').css('display', 'none');
 })
@@ -123,9 +101,8 @@ function watchSubmit() {
 // Load book recommendations results
 function loadResults(data) {
     let results = data.Similar.Results;
+    // If there are no recommendations results
     if(results.length === 0) {
-        console.log("if statement fail");
-        //feedback that it failed  
         clearResults();
         $('.no-results-bar').removeAttr('hidden').addClass('open');
         let noResultsBarHeight = $('.no-results-bar').height();
@@ -135,7 +112,7 @@ function loadResults(data) {
     } else {
         let returnHTML = "";
         books = {};
-        // loop through each item in the Results array
+        // loop through each book recommendation/item in the Results array
         results.forEach(function(item){
         returnHTML += `<div class="thumbnail" tabindex="0"><span>${item.Name}</span></div>`;
         books[item.Name] = item;
@@ -145,10 +122,10 @@ function loadResults(data) {
         $('.js-search-results').html(returnHTML);
         $('.js-search-results').addClass('show');
         $('html, body').animate({                           
-            scrollTop: $(".results-bar").offset().top                 
+            scrollTop: $('.results-bar').offset().top                 
         }, 1000);
     }
-
+    // testing the lightbox
     if (testing && testGBdata && lightboxAllow) {
         lightbox("Carrie");
     }
@@ -201,14 +178,12 @@ function loadGBResults(data) {
     bookCover: data.items[0].volumeInfo.imageLinks.thumbnail,
     description: data.items[0].volumeInfo.description
     };
-    console.log("google books results", bookDetails);
     lightbox(bookDetails);
 }
 
 // Display lightbox
 function lightbox(book) {
-    console.log("lightbox ", book);
-        let displayAccordion = `
+    let displayAccordion = `
         <div class="naccs">
             <div class="grid">
                 <div class="gc gc--1-of-3">
@@ -240,14 +215,38 @@ function lightbox(book) {
                 </div>
             </div>
         </div>`;
-        $('.lightbox-content').html(displayAccordion);
-        $('.lightbox').css('display', 'block');
-        if (book.description === undefined) {
-            console.log("no description");
-            $('.book-description').html("Sorry, there is no description available for this book.");
-        } else {
-            $('.book-description').html(book.description);
-        }
+    $('.lightbox-content').html(displayAccordion);
+    $('.lightbox').css('display', 'block');
+    // If Google Books does not provide a book description
+    if (book.description === undefined) {
+        $('.book-description').html("Sorry, there is no description available for this book.");
+    } else {
+        $('.book-description').html(book.description);
+    }
+}
+
+// Open the lightbox
+function openLightbox(clickedElement) {
+    let thisText = $(clickedElement).text();
+    getDataFromGBApi(thisText, loadGBResults);
+}
+
+// Open lightbox tabs
+function lightboxTabs(tabChosen) {
+    // Lightbox tabs by Benjamin Koehler
+	var numberIndex = $(tabChosen).index();
+	if (!$(tabChosen).is('active')) {
+		$(".naccs .menu div").removeClass("active");
+		$(".naccs ul li").removeClass("active");
+
+		$(tabChosen).addClass("active");
+		$(".naccs ul").find("li:eq(" + numberIndex + ")").addClass("active");
+
+		var listItemHeight = $(".naccs ul")
+			.find("li:eq(" + numberIndex + ")")
+			.innerHeight();
+		$(".naccs ul").height(listItemHeight + "px");
+	}
 }
 
 // Get ready for user to submit a book title
