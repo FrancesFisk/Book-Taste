@@ -3,7 +3,7 @@ $(function() {
 // VARIABLES
 let TASTEDIVE_ENDPOINT = 'https://tastedive.com/api/similar',
     books,
-    testing = true,
+    testing = false,
     testGBdata = false,
     lightboxAllow = false,
     noResultsBarAllow = false;
