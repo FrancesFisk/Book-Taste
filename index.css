@@ -190,7 +190,7 @@ form button {
     top: 10px;
 }
 
-section.lightbox {
+.lightbox {
     background-color: rgba(0, 0, 0, 0.85);
     height: 100vh;
     width: 100vw;
@@ -201,31 +201,28 @@ section.lightbox {
     display: none;
 }
 
-section.lightbox div.inner-lightbox {
+.inner-lightbox {
+    /* background-color: #ffffff; */
     background-color: #B2196D;
-    height: 70%;
-    width: 80%;
+    height: 90%;
+    width: 90%;
     padding: 10px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: white
 }
 
 .lightbox-btn {
     float: right;
+    color: #ffffff;
     background-color: #B2196D;
+    /* background-color: #ffffff; */
     border: none;
 }
 
 /* ACCORDIAN LIGHTBOX */
-
-body {
- position: relative;
- font-family: 'Oswald', sans-serif;
- font-size: 20px;
-}
 
 .grid {
  list-style: none;
@@ -244,23 +241,24 @@ body {
 
 .gc--1-of-3 {
  width: 33.33333%;
+ float: left;
 }
 
 .gc--2-of-3 {
  width: 66.66666%;
- height: 330px;
+ height: 290px;
  overflow: auto;
 }
 
 .naccs {
  position: relative;
  max-width: 900px;
- margin: 100px auto 0;
+ margin: 30px auto 0;
 }
 
 .naccs .menu div {
  padding: 15px 7px;
- font-size: 10px;
+ font-size: 12px;
  margin-bottom: 10px;
  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
  cursor: pointer;
@@ -310,6 +308,7 @@ ul.nacc {
 
 ul.nacc li {
  opacity: 0;
+ display: none;
  transform: translateX(0px);
  position: absolute;
  list-style: none;
@@ -318,6 +317,7 @@ ul.nacc li {
 
 ul.nacc li.active {
  transition-delay: .3s;
+ display: inline-block;
  z-index: 2;
  opacity: 1;
  transform: translateX(0px);
@@ -325,12 +325,12 @@ ul.nacc li.active {
 
 ul.nacc li p {
  margin: 0;
- font-size: 14px;
 }
 
 /* Lightbox styling */
 .book-img {
     border: 1px white solid;
+    height: 150px;
 }
 
 .book-title {
@@ -348,8 +348,126 @@ ul.nacc li p {
 .published-date {
     display: block;
     padding: 5px 0 0 0;
+    font-size: 14px;
 }
 
 .book-description {
     font-size: 16px;
 }
+
+
+/* Smartphones (landscape) ----------- */
+/* @media only screen and (min-width : 667px) and (max-width : 767px) {
+
+.naccs {
+    margin: 50px auto 0;
+}
+
+.book-img {
+    float: left;
+    margin: 0 10px 0 0;
+    height: 160px;
+}
+
+.book-info {
+    float: left;
+    width: 180px;
+}
+
+.book-author {
+    overflow-wrap: break-word;
+}
+
+.gc--2-of-3 {
+    height: 175px;
+}
+
+} */
+
+/* iPads */
+/* @media only screen and (min-width : 768px) and (max-width : 1023px) {
+
+.naccs .menu div {
+    font-size: 22px;
+}
+
+.book-img {
+    margin: 0 10px 0 0;
+    height: 300px;
+}
+
+.book-info {
+    padding: 20px 0 0 0;
+}
+
+.gc--2-of-3 {
+    height: 500px;
+}
+
+.book-title {
+    font-size: 30px;
+    padding: 5px 0 0 0;
+}
+
+.book-author {
+    display: block;
+    font-size: 20px;
+    padding: 1px 0 1px 0;
+}
+
+.published-date {
+    display: block;
+    padding: 5px 0 0 0;
+    font-size: 18px;
+}
+
+.book-description {
+    font-size: 18px;
+    line-height: 24px;
+}
+}
+
+/* iPad landscape */
+@media only screen and (min-width : 1024px) {
+
+.naccs .menu div {
+    font-size: 22px;
+}
+
+.book-img {
+    margin: 0 10px 0 0;
+    height: 300px;
+    float: left;
+}
+
+.book-info {
+    float: left;
+}
+
+.gc--2-of-3 {
+    height: 400px;
+}
+
+.book-title {
+    font-size: 30px;
+}
+
+.book-author {
+    display: block;
+    font-size: 20px;
+    padding: 1px 0 1px 0;
+    overflow-wrap: break-word;
+}
+
+.published-date {
+    display: block;
+    padding: 5px 0 0 0;
+    font-size: 18px;
+}
+
+.book-description {
+    font-size: 18px;
+    line-height: 24px;
+}
+
+} */
