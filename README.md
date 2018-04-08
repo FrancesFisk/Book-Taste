@@ -6,6 +6,6 @@ BookTaste is a simple app to search for book recommendations based on a book tit
 * APIs: Taste Dive, GoogleBooks
 
 ## Screenshots
-![Hero](/img/hero-screenshot.png)
-![Recommendations](/img/recommendations-screenshot.png)
-![lightbox](/img/lightbox-screenshot.png)
+<img src = "https://github.com/FrancesFisk/Book-Taste/blob/master/img/hero-screenshot.png?raw=true" width="400">
+<img src = "https://github.com/FrancesFisk/Book-Taste/blob/master/img/recommendations-screenshot.png?raw=true" width="400">
+<img src = "https://github.com/FrancesFisk/Book-Taste/blob/master/img/lightbox-screenshot.png?raw=true" width="400">
