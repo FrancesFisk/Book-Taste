@@ -11,6 +11,7 @@ main {
     z-index: 1;
 }
 
+/* HERO */
 .hero {
     background: url("img/glen-noble-18012-unsplash.jpg");
     background-size: cover;
@@ -84,6 +85,7 @@ form button {
     cursor: pointer;
 }
 
+/* RESULTS BAR */
 .results-bar.open {
     background-color: #B2196D;
 }
@@ -145,6 +147,7 @@ form button {
     min-height: 100vh;
 }
 
+/* THUMBNAILS */
 .thumbnail {
     display: inline-block;
     position: relative;
@@ -190,6 +193,7 @@ form button {
     top: 10px;
 }
 
+/* LIGHTBOX */
 .lightbox {
     background-color: rgba(0, 0, 0, 0.85);
     height: 100vh;
@@ -202,7 +206,6 @@ form button {
 }
 
 .inner-lightbox {
-    /* background-color: #ffffff; */
     background-color: #B2196D;
     height: 90%;
     width: 90%;
@@ -218,116 +221,9 @@ form button {
     float: right;
     color: #ffffff;
     background-color: #B2196D;
-    /* background-color: #ffffff; */
     border: none;
 }
 
-/* ACCORDIAN LIGHTBOX */
-
-.grid {
- list-style: none;
- margin-left: -18px;
-}
-
-.gc {
- box-sizing: border-box;
- display: inline-block;
- margin-right: -.25em;
- min-height: 1px;
- padding-left: 20px;
- padding-right: 5px;
- vertical-align: top;
-}
-
-.gc--1-of-3 {
- width: 33.33333%;
- float: left;
-}
-
-.gc--2-of-3 {
- width: 66.66666%;
- height: 290px;
- overflow: auto;
-}
-
-.naccs {
- position: relative;
- max-width: 900px;
- margin: 30px auto 0;
-}
-
-.naccs .menu div {
- padding: 15px 7px;
- font-size: 12px;
- margin-bottom: 10px;
- box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
- cursor: pointer;
- position: relative;
- vertical-align: middle;
- font-weight: 500;
- transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
- background-color: rgb(182, 47, 122);
-}
-
-.naccs .menu div:hover {
- box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.naccs .menu div span.light {
- height: 10px;
- width: 10px;
- position: absolute;
- top: 24px;
- left: 15px;
- border-radius: 100%;
- transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-.naccs .menu div.active span.light {
- left: 0;
- height: 100%;
- width: 3px;
- top: 0;
- border-radius: 0;
- background-color: #1E919E;
-}
-
-.naccs .menu div.active {
-    padding: 15px 7px;
-    font-weight: 700;
-}
-
-ul.nacc {
- position: relative;
- height: 0px;
- list-style: none;
- margin: 0;
- padding: 0;
- transition: .5s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-ul.nacc li {
- opacity: 0;
- display: none;
- transform: translateX(0px);
- position: absolute;
- list-style: none;
- transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-ul.nacc li.active {
- transition-delay: .3s;
- display: inline-block;
- z-index: 2;
- opacity: 1;
- transform: translateX(0px);
-}
-
-ul.nacc li p {
- margin: 0;
-}
-
-/* Lightbox styling */
 .book-img {
     border: 1px white solid;
     height: 150px;
@@ -355,119 +251,106 @@ ul.nacc li p {
     font-size: 16px;
 }
 
+/* ACCORDIAN TABS */
+.grid {
+    list-style: none;
+    margin-left: -18px;
+}
 
-/* Smartphones (landscape) ----------- */
-/* @media only screen and (min-width : 667px) and (max-width : 767px) {
+.gc {
+    box-sizing: border-box;
+    display: inline-block;
+    margin-right: -.25em;
+    min-height: 1px;
+    padding-left: 20px;
+    padding-right: 5px;
+    vertical-align: top;
+}
+
+.gc--1-of-3 {
+    width: 33.33333%;
+    float: left;
+}
+
+.gc--2-of-3 {
+    width: 66.66666%;
+    height: 290px;
+    overflow: auto;
+}
 
 .naccs {
-    margin: 50px auto 0;
+    position: relative;
+    max-width: 900px;
+    margin: 30px auto 0;
 }
-
-.book-img {
-    float: left;
-    margin: 0 10px 0 0;
-    height: 160px;
-}
-
-.book-info {
-    float: left;
-    width: 180px;
-}
-
-.book-author {
-    overflow-wrap: break-word;
-}
-
-.gc--2-of-3 {
-    height: 175px;
-}
-
-} */
-
-/* iPads */
-/* @media only screen and (min-width : 768px) and (max-width : 1023px) {
 
 .naccs .menu div {
-    font-size: 22px;
+    padding: 15px 7px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+    font-weight: 500;
+    transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
+    background-color: rgb(182, 47, 122);
 }
 
-.book-img {
-    margin: 0 10px 0 0;
-    height: 300px;
+.naccs .menu div:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.book-info {
-    padding: 20px 0 0 0;
+.naccs .menu div span.light {
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: 24px;
+    left: 15px;
+    border-radius: 100%;
+    transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.gc--2-of-3 {
-    height: 500px;
+.naccs .menu div.active span.light {
+    left: 0;
+    height: 100%;
+    width: 3px;
+    top: 0;
+    border-radius: 0;
+    background-color: #1E919E;
 }
 
-.book-title {
-    font-size: 30px;
-    padding: 5px 0 0 0;
+.naccs .menu div.active {
+    padding: 15px 7px;
+    font-weight: 700;
 }
 
-.book-author {
-    display: block;
-    font-size: 20px;
-    padding: 1px 0 1px 0;
+ul.nacc {
+    position: relative;
+    height: 0px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: .5s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.published-date {
-    display: block;
-    padding: 5px 0 0 0;
-    font-size: 18px;
+ul.nacc li {
+    opacity: 0;
+    display: none;
+    transform: translateX(0px);
+    position: absolute;
+    list-style: none;
+    transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.book-description {
-    font-size: 18px;
-    line-height: 24px;
-}
-}
-
-/* iPad landscape */
-@media only screen and (min-width : 1024px) {
-
-.naccs .menu div {
-    font-size: 22px;
+ul.nacc li.active {
+    transition-delay: .3s;
+    display: inline-block;
+    z-index: 2;
+    opacity: 1;
+    transform: translateX(0px);
 }
 
-.book-img {
-    margin: 0 10px 0 0;
-    height: 300px;
-    float: left;
+ul.nacc li p {
+    margin: 0;
 }
-
-.book-info {
-    float: left;
-}
-
-.gc--2-of-3 {
-    height: 400px;
-}
-
-.book-title {
-    font-size: 30px;
-}
-
-.book-author {
-    display: block;
-    font-size: 20px;
-    padding: 1px 0 1px 0;
-    overflow-wrap: break-word;
-}
-
-.published-date {
-    display: block;
-    padding: 5px 0 0 0;
-    font-size: 18px;
-}
-
-.book-description {
-    font-size: 18px;
-    line-height: 24px;
-}
-
-} */
