@@ -36,7 +36,6 @@ $('body').on('click', '.thumbnail', function(e) {
 })
 
 $('body').on('keypress', '.thumbnail', function(e){
-    console.log(e.which);
     if(e.which === 13){//Enter key pressed
         openLightbox(this);
     }
@@ -48,7 +47,7 @@ $(document).on('click', '.naccs .menu div', function() {
 });
 
 $(document).on('keypress', '.naccs .menu div', function(e) {
-    if(e.which === 13) {
+    if(e.which === 13) {//Enter key pressed
         lightboxTabs(this);
     }   
 });
@@ -154,7 +153,6 @@ function capitalize(string) {
 // Get data from Google Books Api 
 function getDataFromGBApi(searchTerm, callback) {
    let GOOGLEBOOKS_ENDPOINT = 'https://www.googleapis.com/books/v1/volumes';
-    // create settings for the search
     const settings = {
     data: {
         q: `${searchTerm}`,
@@ -165,7 +163,6 @@ function getDataFromGBApi(searchTerm, callback) {
     type: 'GET',
     success: callback
     };
-    // perform an asynchronous HTTP request
     $.ajax(GOOGLEBOOKS_ENDPOINT, settings);
 }
 
