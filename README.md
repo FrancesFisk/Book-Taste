@@ -1,5 +1,5 @@
 # Book-Taste
-BookTaste is a simple app to search for book recommendations based on a book title. You can click on a recommended bok to find out its author, published date and description.
+BookTaste is a simple app to search for book recommendations based on a book title. You can click on a recommended book to find out its author, published date and description.
 
 Link to the live version: https://francesfisk.github.io/Book-Taste/
 
