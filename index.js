@@ -2,6 +2,7 @@ $(function() {
 
 // VARIABLES
 let TASTEDIVE_ENDPOINT = 'https://tastedive.com/api/similar',
+    GOOGLEBOOKS_ENDPOINT = 'https://www.googleapis.com/books/v1/volumes',
     books,
     testing = false,
     testGBdata = false,
@@ -152,7 +153,6 @@ function capitalize(string) {
 
 // Get data from Google Books Api 
 function getDataFromGBApi(searchTerm, callback) {
-   let GOOGLEBOOKS_ENDPOINT = 'https://www.googleapis.com/books/v1/volumes';
     const settings = {
     data: {
         q: `${searchTerm}`,
